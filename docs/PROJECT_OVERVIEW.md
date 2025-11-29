@@ -1,114 +1,149 @@
+
+---
+
+## 📄 docs/PROJECT_OVERVIEW.md (aktueller Stand nach 1.3)
+
+Bitte diese Datei **vollständig so** speichern:
+
+```md
 # MYAII2025a – Projektübersicht
 
-## 1. Projektbeschreibung
+## 1. Überblick
 
-MYAII ist ein Mobile-Prototyp (iOS-App) für einen persönlichen AI-Coach mit Tagebuchfunktion.  
-Ziel ist ein **Showcase-Prototyp**, der über **TestFlight** verteilt werden kann und folgende Kernbereiche abdeckt:
+**Projekt:** MYAII – Mobile-Prototyp (iOS App) mit Expo / React Native und TypeScript.  
+Ziel ist ein begleitender Coach- und Diary-Prototyp, der in einem Showcase (z. B. mit HeyGen-Avatar) demonstriert werden kann.
 
-- **Coach**: AI-Coach mit Avatar (HeyGen-Integration via WebView).
-- **Diary**: Stimmungs- und Texteingaben (Mood + Text), lokal gespeichert.
-- Weitere Bereiche (z. B. Freunde, Profil, Auswertungen) sind für spätere Phasen vorgesehen.
+**Projektstruktur (relevant für Mobile-Prototyp):**
 
-Der Fokus von Phase 1 liegt auf einer **stabilen technischen Basis**, einer klaren Navigation und einer sauberen Projektstruktur (Code & Doku).
-
----
-
-## 2. Architektur & Tech-Stack (Stand nach Teilprojekt 1.1)
-
-- **Plattform:** iOS (Expo / React Native, TypeScript)
-- **Mobile-Framework:** Expo (blank TypeScript-Template)
-- **Navigation:** React Navigation mit Bottom Tab Navigator
-- **Sprachen:** TypeScript, JavaScript (unter der Haube)
-- **Entwicklungsumgebung:**
-  - OS: Windows 10/11
-  - Editor: VS Code
-  - Terminal: Git Bash
-- **Versionsverwaltung:** Git + GitHub  
-  - Repo: `https://github.com/bmue76/myaii2025a.git`
-
-Noch nicht integriert (aber geplant):
-
-- WebView für HeyGen-Avatar (Coach-Tab).
-- AsyncStorage für Diary-Daten.
-- LLM-Integration für Coaching-Text & Tagebuch-Auswertung (Phase 2).
+- Projekt-Root: `C:\dev\myaii2025a`
+- Mobile-App: `C:\dev\myaii2025a\mobile`
+- GitHub-Repo: `https://github.com/bmue76/myaii2025a.git`
 
 ---
 
-## 3. Projektstruktur (Stand nach Teilprojekt 1.1)
+## 2. Teilprojekte Mobile-App
 
-**Root:**
+### 2.1 Teilprojekt 1.1 – Expo Setup & Grundnavigation
 
-- `C:\dev\myaii2025a`
-  - `mobile/` – Expo-/React-Native-App
-  - `docs/` – Projektdokumentation (Markdown)
+**Ziel:**
 
-**Mobile-App (`mobile/`):**
+- Basis-App mit Expo/TypeScript aufsetzen.
+- Bottom-Tab-Navigation mit Tabs **Coach** und **Diary**.
 
-- `App.tsx`  
-  – Einstiegspunkt der App, setzt `NavigationContainer` und `RootTabs`.
+**Umsetzung:**
 
-- `src/`
-  - `navigation/`
-    - `RootTabs.tsx`  
-      – BottomTabNavigator mit Tabs **Coach** und **Diary**.
-  - `screens/`
-    - `CoachScreen.tsx`  
-      – Placeholder-Screen für AI-Coach/HeyGen.
-    - `DiaryScreen.tsx`  
-      – Placeholder-Screen für Tagebuch.
+- Expo-TypeScript-App im Ordner `mobile` erstellt.
+- React Navigation (Bottom Tabs) eingerichtet.
+- Tabs:
+  - **Coach** → `CoachScreen` (zunächst Placeholder).
+  - **Diary** → `DiaryScreen` (zunächst Placeholder).
+- Grundstruktur für Screens, Navigation und Config angelegt.
 
-Diese Struktur wird in kommenden Teilprojekten um weitere Bereiche wie `components/`, `hooks/`, `types/` usw. ergänzt.
+**Status:** Abgeschlossen  
+**Doku:** `docs/teilprojekt-1.1-expo-setup-grundnavigation.md`
 
 ---
 
-## 4. Teilprojekte – Übersicht & Status
+### 2.2 Teilprojekt 1.2 – Coach-Tab – HeyGen-WebView
 
-### 4.1 Phase 1 – Showcase-Prototyp (Mobile iOS)
+**Ziel:**
 
-1. **Teilprojekt 1.1 – Expo Setup & Grundnavigation**  
-   **Status:** abgeschlossen (29.11.2025)  
-   **Inhalte:**
-   - Expo-Projekt (TypeScript) unter `mobile/` erstellt.
-   - Grundstruktur mit `src/`, `navigation/` und `screens/`.
-   - React Navigation mit Bottom Tabs „Coach“ & „Diary“ eingerichtet.
-   - Placeholder-Screens für Coach & Diary.
-   - Git-Repo angelegt und mit GitHub verknüpft.
-   - Basis-Dokumentation erstellt (`PROJECT_OVERVIEW.md`, `teilprojekt-1.1-...`).
+- Coach-Tab mit HeyGen-Avatar-Seite via WebView realisieren.
+- Loading-State, Error-Handling und einfacher Header.
 
-2. **Teilprojekt 1.2 – Coach-Tab: HeyGen-WebView-Integration**  
-   **Status:** geplant  
-   **Ziel:**
-   - Einbindung des HeyGen-Avatars im Coach-Tab via WebView.
-   - Konfiguration über eine zentrale URL/Config.
-   - Test auf iOS (Expo Go / TestFlight-Vorbereitung).
+**Umsetzung:**
 
-3. **Teilprojekt 1.3 – Diary-Tab: MVP Mood & Text (lokal)**  
-   **Status:** geplant  
-   **Ziel:**
-   - Erfassung von Mood + Text im Diary-Tab.
-   - Speicherung der Einträge mit AsyncStorage.
-   - Anzeige einer Liste der bisherigen Einträge.
+- `react-native-webview` integriert.
+- Konfigurationsdatei: `mobile/src/config/coachConfig.ts` mit `HEYGEN_COACH_URL`.
+- `CoachScreen` lädt die HeyGen-URL in einer WebView:
+  - Header mit Titel („MYAII Coach“) und Hinweis („Prototyp – HeyGen-Avatar“).
+  - Loading-Overlay („Coach wird geladen …“).
+  - Fehleranzeige mit Retry-Button.
+- Doku für das Teilprojekt ergänzt.
 
-4. **Teilprojekt 1.4 – UI-Finetuning & weitere Navigation**  
-   **Status:** geplant  
-   **Ziel:**
-   - Anpassung der UI gemäss GUI/Branding.
-   - Vorbereitung weiterer Tabs/Stacks (z. B. „Friends“, „Profile“, Settings).
+**Relevante Dateien:**
+
+- `mobile/src/screens/CoachScreen.tsx`
+- `mobile/src/config/coachConfig.ts`
+
+**Status:** Abgeschlossen  
+**Doku:** `docs/teilprojekt-1.2-coach-webview-heygen.md`
 
 ---
 
-## 5. How to Run (Stand 1.1)
+### 2.3 Teilprojekt 1.3 – Diary-MVP – Mood & Text mit AsyncStorage
 
-### 5.1 Voraussetzungen
+**Ziel:**
 
-- Node.js installiert
-- npm verfügbar
-- Expo CLI via `npx` verwendbar
-- Expo Go App auf iPhone (für Tests auf realem Device)
+- Diary-Tab zu einem ersten MVP ausbauen:
+  - Mood-Picker (Emojis).
+  - Freitext-Eingabe für persönliche Notizen.
+  - Lokale Speicherung mit AsyncStorage.
+  - Anzeige der gespeicherten Einträge in einer Liste.
 
-### 5.2 App starten
+**Umsetzung:**
 
-```bash
-cd /c/dev/myaii2025a/mobile
-npm install        # nur beim ersten Mal nötig
-npx expo start
+- **AsyncStorage-Integration:**
+  - Installation via:
+    ```bash
+    cd /c/dev/myaii2025a/mobile
+    npx expo install @react-native-async-storage/async-storage
+    ```
+  - Zentraler Storage-Key: `MYAII_DIARY_ENTRIES`.
+
+- **Datenmodell & Types:**
+  - Datei: `mobile/src/types/diary.ts`
+  - Typen:
+    - `Mood = 'awful' | 'bad' | 'ok' | 'good' | 'great'`
+    - `DiaryEntry` (id, createdAt, mood, text).
+
+- **Storage-Wrapper:**
+  - Datei: `mobile/src/storage/diaryStorage.ts`
+  - Funktionen:
+    - `loadDiaryEntries()` – lädt bestehende Einträge aus AsyncStorage.
+    - `saveDiaryEntries(entries)` – speichert Einträge wieder ab.
+    - `clearDiaryEntries()` – löscht alle Einträge (Dev/Debug).
+
+- **DiaryScreen (MVP-UI):**
+  - Datei: `mobile/src/screens/DiaryScreen.tsx`
+  - Features:
+    - Mood-Picker mit 5 Emojis (von „sehr schlecht“ bis „super“).
+    - Multiline-Textfeld für freie Notizen.
+    - Button „Eintrag speichern“ mit Validierung:
+      - Mood muss gewählt sein.
+      - Text darf nicht leer sein.
+    - Lokale Speicherung aller Einträge in AsyncStorage.
+    - Liste der bisherigen Einträge:
+      - Mood-Emoji, Datum/Zeit, Kurztext (max. ~160 Zeichen).
+    - „Alle löschen“-Button mit Sicherheitsdialog.
+    - Kurzes Feedback nach dem Speichern („Eintrag gespeichert ✨“).
+    - Tastatur schließt nach Speichern automatisch, Taps auf den Hintergrund schließen sie ebenfalls.
+
+**Relevante Dateien:**
+
+- `mobile/src/screens/DiaryScreen.tsx`
+- `mobile/src/types/diary.ts`
+- `mobile/src/storage/diaryStorage.ts`
+
+**Status:** Abgeschlossen (29.11.2025)  
+**Doku:** `docs/teilprojekt-1.3-diary-mvp-mood-text.md`
+
+---
+
+## 3. Nächste mögliche Schritte (Roadmap-Ideen)
+
+- **1.x – UI/UX-Finishing:**
+  - Gemeinsames Styling-Konzept für Coach- und Diary-Tab.
+  - Kleine Animationen, bessere States (z. B. leere Diary-Liste).
+
+- **2.x – Erweiterungen Diary:**
+  - Filter und Zeiträume (z. B. „Nur heute“, „Letzte Woche“).
+  - Mood-Statistiken und einfache Charts.
+  - Export- / Share-Funktion (z. B. CSV/JSON).
+
+- **3.x – Backend & Sync (optional):**
+  - Zentrale Speicherung im PDS / Backend.
+  - Login/Accounts, wenn für Showcase sinnvoll.
+  - Verschlüsselung / Privacy-Features.
+
+Diese Roadmap ist vorläufig und kann mit den Anforderungen aus dem Showcase weiter verfeinert werden.
