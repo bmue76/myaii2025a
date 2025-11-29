@@ -1,149 +1,187 @@
 
 ---
 
-## 📄 docs/PROJECT_OVERVIEW.md (aktueller Stand nach 1.3)
-
-Bitte diese Datei **vollständig so** speichern:
-
 ```md
+# docs/PROJECT_OVERVIEW.md
+
 # MYAII2025a – Projektübersicht
 
-## 1. Überblick
-
-**Projekt:** MYAII – Mobile-Prototyp (iOS App) mit Expo / React Native und TypeScript.  
-Ziel ist ein begleitender Coach- und Diary-Prototyp, der in einem Showcase (z. B. mit HeyGen-Avatar) demonstriert werden kann.
-
-**Projektstruktur (relevant für Mobile-Prototyp):**
-
-- Projekt-Root: `C:\dev\myaii2025a`
-- Mobile-App: `C:\dev\myaii2025a\mobile`
-- GitHub-Repo: `https://github.com/bmue76/myaii2025a.git`
+**Projekt:** MYAII2025a – Mobile-Prototyp „MYAII“ (iOS App)  
+**Technologie:** Expo / React Native / TypeScript  
+**Repository:** https://github.com/bmue76/myaii2025a.git  
+**Stand:** 29.11.2025 (nach Abschluss Teilprojekt 1.4)
 
 ---
 
-## 2. Teilprojekte Mobile-App
+## 1. Ziel des Projekts
 
-### 2.1 Teilprojekt 1.1 – Expo Setup & Grundnavigation
+MYAII ist ein Mobile-Prototyp (primär iOS), der zwei zentrale Funktionen kombiniert:
 
-**Ziel:**
+1. **Coach-Tab**  
+   - Integration eines Video-/Avatar-Coaches (z. B. HeyGen) via WebView.
 
-- Basis-App mit Expo/TypeScript aufsetzen.
-- Bottom-Tab-Navigation mit Tabs **Coach** und **Diary**.
+2. **Diary-Tab**  
+   - Einfaches, lokales „Mood & Text“-Tagebuch:
+     - Stimmungsauswahl (Emojis).
+     - Freitext-Eingaben.
+     - Lokale Speicherung via AsyncStorage.
 
-**Umsetzung:**
-
-- Expo-TypeScript-App im Ordner `mobile` erstellt.
-- React Navigation (Bottom Tabs) eingerichtet.
-- Tabs:
-  - **Coach** → `CoachScreen` (zunächst Placeholder).
-  - **Diary** → `DiaryScreen` (zunächst Placeholder).
-- Grundstruktur für Screens, Navigation und Config angelegt.
-
-**Status:** Abgeschlossen  
-**Doku:** `docs/teilprojekt-1.1-expo-setup-grundnavigation.md`
+Das Projekt wird schrittweise in Teilprojekte gegliedert und mit Git & Dokumentation begleitet.
 
 ---
 
-### 2.2 Teilprojekt 1.2 – Coach-Tab – HeyGen-WebView
+## 2. Projektstruktur
 
-**Ziel:**
+**Verzeichnisse:**
 
-- Coach-Tab mit HeyGen-Avatar-Seite via WebView realisieren.
-- Loading-State, Error-Handling und einfacher Header.
+- Projekt-Root:  
+  `C:\dev\myaii2025a`
 
-**Umsetzung:**
+- Mobile-App (Expo / React Native):  
+  `C:\dev\myaii2025a\mobile`
 
-- `react-native-webview` integriert.
-- Konfigurationsdatei: `mobile/src/config/coachConfig.ts` mit `HEYGEN_COACH_URL`.
-- `CoachScreen` lädt die HeyGen-URL in einer WebView:
-  - Header mit Titel („MYAII Coach“) und Hinweis („Prototyp – HeyGen-Avatar“).
-  - Loading-Overlay („Coach wird geladen …“).
-  - Fehleranzeige mit Retry-Button.
-- Doku für das Teilprojekt ergänzt.
-
-**Relevante Dateien:**
-
-- `mobile/src/screens/CoachScreen.tsx`
-- `mobile/src/config/coachConfig.ts`
-
-**Status:** Abgeschlossen  
-**Doku:** `docs/teilprojekt-1.2-coach-webview-heygen.md`
+- Dokumentation:  
+  `C:\dev\myaii2025a\docs`
 
 ---
 
-### 2.3 Teilprojekt 1.3 – Diary-MVP – Mood & Text mit AsyncStorage
+## 3. Teilprojekte
 
-**Ziel:**
+### 3.1 Teilprojekt 1.1 – Expo Setup & Grundnavigation
 
-- Diary-Tab zu einem ersten MVP ausbauen:
-  - Mood-Picker (Emojis).
-  - Freitext-Eingabe für persönliche Notizen.
-  - Lokale Speicherung mit AsyncStorage.
-  - Anzeige der gespeicherten Einträge in einer Liste.
+- Expo-TypeScript-App erstellt unter `mobile`.
+- Basis-Navigation:
+  - Bottom-Tab-Navigation mit Tabs **Coach** & **Diary**.
+- Placeholder-Screens für beide Tabs.
+- Git-Basis-Setup und erste Doku erstellt.
 
-**Umsetzung:**
+**Details:** siehe `docs/teilprojekt-1.1-expo-setup-grundnavigation.md`
 
-- **AsyncStorage-Integration:**
-  - Installation via:
-    ```bash
-    cd /c/dev/myaii2025a/mobile
-    npx expo install @react-native-async-storage/async-storage
-    ```
-  - Zentraler Storage-Key: `MYAII_DIARY_ENTRIES`.
+---
 
-- **Datenmodell & Types:**
-  - Datei: `mobile/src/types/diary.ts`
-  - Typen:
+### 3.2 Teilprojekt 1.2 – Coach-Tab – HeyGen-WebView
+
+- Integration von `react-native-webview`.
+- Konfigurationsdatei `mobile/src/config/coachConfig.ts` mit:
+  - `HEYGEN_COACH_URL` (konfigurierbare URL für den HeyGen-Avatar/Coach).
+- `CoachScreen`:
+  - Lädt die HeyGen-URL in einer WebView.
+  - Implementiert:
+    - Header/Titel.
+    - Loading-State (Spinner/ActivityIndicator).
+    - Einfaches Error-Handling (Fehlermeldung bei Ladefehlern).
+
+**Details:** siehe `docs/teilprojekt-1.2-coach-tab-heygen-webview.md`
+
+---
+
+### 3.3 Teilprojekt 1.3 – Diary-MVP – Mood & Text
+
+- **AsyncStorage-Integration**:
+  - Installation und Setup von `@react-native-async-storage/async-storage`.
+  - Storage-Key-Konvention: `MYAII_DIARY_ENTRIES`.
+
+- **Datenmodell & Types**:
+  - `mobile/src/types/diary.ts`:
     - `Mood = 'awful' | 'bad' | 'ok' | 'good' | 'great'`
-    - `DiaryEntry` (id, createdAt, mood, text).
+    - `DiaryEntry` mit Feldern:
+      - `id`
+      - `createdAt`
+      - `mood`
+      - `text`
 
-- **Storage-Wrapper:**
-  - Datei: `mobile/src/storage/diaryStorage.ts`
-  - Funktionen:
-    - `loadDiaryEntries()` – lädt bestehende Einträge aus AsyncStorage.
-    - `saveDiaryEntries(entries)` – speichert Einträge wieder ab.
-    - `clearDiaryEntries()` – löscht alle Einträge (Dev/Debug).
+- **Storage-Wrapper**:
+  - `mobile/src/storage/diaryStorage.ts` mit Funktionen:
+    - `loadDiaryEntries()`
+    - `saveDiaryEntries(entries)`
+    - `clearDiaryEntries()`
 
-- **DiaryScreen (MVP-UI):**
-  - Datei: `mobile/src/screens/DiaryScreen.tsx`
-  - Features:
-    - Mood-Picker mit 5 Emojis (von „sehr schlecht“ bis „super“).
-    - Multiline-Textfeld für freie Notizen.
-    - Button „Eintrag speichern“ mit Validierung:
-      - Mood muss gewählt sein.
-      - Text darf nicht leer sein.
-    - Lokale Speicherung aller Einträge in AsyncStorage.
-    - Liste der bisherigen Einträge:
-      - Mood-Emoji, Datum/Zeit, Kurztext (max. ~160 Zeichen).
-    - „Alle löschen“-Button mit Sicherheitsdialog.
-    - Kurzes Feedback nach dem Speichern („Eintrag gespeichert ✨“).
-    - Tastatur schließt nach Speichern automatisch, Taps auf den Hintergrund schließen sie ebenfalls.
+- **DiaryScreen**:
+  - Mood-Picker (Buttons/Emojis für die Stimmungen).
+  - Multiline-Textfeld für Notizen.
+  - „Eintrag speichern“-Button mit Validierung (kein komplett leerer Eintrag).
+  - Liste der gespeicherten Einträge (Datum, Mood-Icon, Textauszug).
+  - „Alle löschen“-Funktion.
+  - UX-Verbesserungen (z. B. Keyboard-Verhalten, Feedback nach Speichern).
 
-**Relevante Dateien:**
-
-- `mobile/src/screens/DiaryScreen.tsx`
-- `mobile/src/types/diary.ts`
-- `mobile/src/storage/diaryStorage.ts`
-
-**Status:** Abgeschlossen (29.11.2025)  
-**Doku:** `docs/teilprojekt-1.3-diary-mvp-mood-text.md`
+**Details:** siehe `docs/teilprojekt-1.3-diary-mvp-mood-text.md`
 
 ---
 
-## 3. Nächste mögliche Schritte (Roadmap-Ideen)
+### 3.4 Teilprojekt 1.4 – EAS Setup & iOS-Build (Dev & Vorbereitung TestFlight)
 
-- **1.x – UI/UX-Finishing:**
-  - Gemeinsames Styling-Konzept für Coach- und Diary-Tab.
-  - Kleine Animationen, bessere States (z. B. leere Diary-Liste).
+- **EAS-Integration:**
+  - `eas init` im Projekt `mobile`.
+  - Projekt mit Expo/EAS-Account verknüpft (Slug: `mobile`).
 
-- **2.x – Erweiterungen Diary:**
-  - Filter und Zeiträume (z. B. „Nur heute“, „Letzte Woche“).
-  - Mood-Statistiken und einfache Charts.
-  - Export- / Share-Funktion (z. B. CSV/JSON).
+- **Expo-Konfiguration (`app.config.ts`):**
+  - Neue zentrale Konfigurationsdatei `mobile/app.config.ts`.
+  - Wichtige Felder:
+    - `name: "MYAII"`
+    - `slug: "mobile"` (EAS-konform)
+    - `version: "1.0.0"`
+    - `bundleIdentifier: "ch.atlex.myaii"` (iOS)
+    - `package: "ch.atlex.myaii"` (Android, für später)
+    - Splash-Fallback auf `./assets/icon.png`.
+    - `ios.infoPlist.ITSAppUsesNonExemptEncryption = false`.
 
-- **3.x – Backend & Sync (optional):**
-  - Zentrale Speicherung im PDS / Backend.
-  - Login/Accounts, wenn für Showcase sinnvoll.
-  - Verschlüsselung / Privacy-Features.
+- **EAS-Build-Konfiguration (`eas.json`):**
+  - Profile:
+    - `development` → Dev Client, `distribution: "internal"`.
+    - `preview` → interner Build für Previews.
+    - `production` → `distribution: "store"` (für App Store/TestFlight).
+  - `cli.appVersionSource = "remote"`.
 
-Diese Roadmap ist vorläufig und kann mit den Anforderungen aus dem Showcase weiter verfeinert werden.
+- **Dependencies & Fixes:**
+  - `expo-dev-client` automatisch installiert (SDK 54).
+  - Fehlerbehebungen:
+    - Missing Asset (`./assets/splash.png`) → Splash auf Icon umgestellt.
+    - Slug-Konflikt (`mobile` vs `myaii`) → Slug lokal auf `mobile` gesetzt.
+    - Encryption-Info (`ITSAppUsesNonExemptEncryption`) → explizit auf `false`.
+
+- **Erster iOS-Development-Build:**
+  - Build-Befehl:  
+    `eas build --platform ios --profile development`
+  - Build erfolgreich, Binary/Install-Link im EAS-Dashboard verfügbar (interne Distribution).
+
+**Details:** siehe `docs/teilprojekt-1.4-eas-setup-ios-build.md`
+
+---
+
+## 4. Stand nach Teilprojekt 1.4 (29.11.2025)
+
+- **Funktional:**
+  - Grundnavigation mit Tabs **Coach** & **Diary** vorhanden.
+  - Coach-Tab lädt HeyGen-Avatar/Coach via WebView.
+  - Diary-Tab hat lauffähigen MVP:
+    - Mood-Auswahl.
+    - Freitext-Tagebuch.
+    - Lokale Speicherung & Anzeige der Einträge.
+
+- **Technisch:**
+  - Expo/React-Native-Projekt stabil unter `mobile`.
+  - TypeScript & strukturierte Projektorganisation (Screens, Config, Storage).
+  - AsyncStorage für lokale Datenpersistenz integriert.
+  - EAS-Build-Pipeline für iOS eingerichtet (Development-Profile getestet).
+  - EAS-Projekt mit Expo Account verknüpft (Slug `mobile`).
+
+- **Bereit für nächste Schritte:**
+  - TestFlight-Distribution (Teilprojekt 1.5).
+  - Optische Verfeinerung (Icons, Splash, Branding).
+  - Weitere Features im Coach-Tab und Diary-Tab.
+
+---
+
+## 5. Nächste geplante Teilprojekte (Ausblick)
+
+- **Teilprojekt 1.5 – TestFlight-Distribution**
+  - EAS Submit für iOS (TestFlight).
+  - App-Store-Metadaten (Name, Beschreibung, Screenshots).
+  - Interne Tester-Gruppen und erste User-Tests.
+
+- **Teilprojekt 1.x – UI/UX-Feinschliff**
+  - Branding, Farben, Typografie (MYAII-Design).
+  - Verbesserte Loading-/Error-Zustände.
+  - ggf. zusätzliche Diary-Funktionen (Filter, Export).
+
+Die konkrete Planung der nächsten Teilprojekte erfolgt im Master- & Roadmap-Chat.
